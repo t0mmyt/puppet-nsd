@@ -35,8 +35,35 @@
 #
 # Copyright 2015 Your name here, unless otherwise noted.
 #
-class nsd {
-    case $::operatingsystem {
+class nsd (
+    $ip_address                 = undef;
+    $ip_transient               = undef;
+    $hide_version               = undef;
+    $debug_mode                 = undef;
+    $ipv4_only                  = undef;
+    $ipv6_only                  = undef;
+    $database                   = undef;
+    $identity                   = undef;
+    $server_count               = undef;
+    $statistics                 = undef;
+    $zone_stats_file            = undef;
+    $chroot                     = undef;
+    $username                   = undef;
+    $zonesdir                   = undef;
+    $difffile                   = undef;
+    $xfrdfile                   = undef;
+    $xfrd_reload_timeout        = undef;
+    $verbosity                  = undef;
+    $rrl_size                   = undef;
+    $rrl_ratelimit              = undef;
+    $rrl_slip                   = undef;
+    $rrl_ipv4_prefix_length     = undef;
+    $rrl_ipv6_prefix_length     = undef;
+    $rrl_whitelist_ratelimit    = undef;
+) {
+
+    $os = downcase($::operatingsystem)
+    case $os {
         centos, redhat, debian, ubuntu: {
             $nsd_package = 'nsd',
         }
@@ -50,9 +77,25 @@ class nsd {
         ensure  => '>4',
     }
 
+    file { '/etc/nsd':
+        ensure  => directory,
+        owner   => 'root',
+        group   => 'nsd',
+        mode    => '0750',
+    }
+
+    file { '/etc/nsd/nsd.conf':
+        ensure  => file,
+        owner   => 'root',
+        group   => 'nsd',
+        mode    => '0640',
+        source  => template('nsd/nsd.conf.erb'),
+        require => [ File['/etc/nsd'], ],
+    }
+
     service { 'nsd':
         ensure  => running,
         enabled => true,
-        require => [ Package['nsd'], ],
+        require => [ Package['nsd'], File['/etc/nsd/nsd.conf'], ],
     }
 }
