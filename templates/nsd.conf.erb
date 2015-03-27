@@ -1,0 +1,76 @@
+server:
+<% if @ip_address -%>
+    ip-address: <%= @ip_address %>
+<% end -%>
+<% if @port -%>
+    port: <%= @port %>
+<% end -%>
+<% if @ip_transient -%>
+    ip-transient: <%= @ip_transient %>
+<% end -%>
+<% if @hide_version -%>
+    hide-version: <%= @hide_version %>
+<% end -%>
+<% if @debug_mode -%>
+    debug-mode: <%= @debug_mode %>
+<% end -%>
+<% if @ipv4_only -%>
+    ipv4-only: <%= @ipv4_only %>
+<% end -%>
+<% if @ipv6_only -%>
+    ipv6-only: <%= @ipv6_only %>
+<% end -%>
+<% if @database -%>
+    database: <%= @database %>
+<% end -%>
+<% if @identity -%>
+    identity: <%= @identity %>
+<% end -%>
+<% if @server_count -%>
+    server-count: <%= @server_count %>
+<% end -%>
+<% if @statistics -%>
+    statistics: <%= @statistics %>
+<% end -%>
+<% if @zone_stats_file -%>
+    zone-stats-file: <%= @zone_stats_file %>
+<% end -%>
+<% if @chroot -%>
+    chroot: <%= @chroot %>
+<% end -%>
+<% if @username -%>
+    username: <%= @username %>
+<% end -%>
+<% if @zonesdir -%>
+    zonesdir: <%= @zonesdir %>
+<% end -%>
+<% if @difffile -%>
+    difffile: <%= @difffile %>
+<% end -%>
+<% if @xfrdfile -%>
+    xfrdfile: <%= @xfrdfile %>
+<% end -%>
+<% if @xfrd_reload_timeout -%>
+    xfrd-reload-timeout: <%= @xfrd_reload_timeout %>
+<% end -%>
+<% if @verbosity -%>
+    verbosity: <%= @verbosity %>
+<% end -%>
+<% if @rrl_size -%>
+    rrl-size: <%= @rrl_size %>
+<% end -%>
+<% if @rrl_ratelimit -%>
+    rrl-ratelimit: <%= @rrl_ratelimit %>
+<% end -%>
+<% if @rrl_slip -%>
+    rrl-slip: <%= @rrl_slip %>
+<% end -%>
+<% if @rrl_ipv4-prefix_length -%>
+    rrl-ipv4-prefix-length: <%= @rrl_ipv4-prefix_length %>
+<% end -%>
+<% if @rrl_ipv6-prefix_length -%>
+    rrl-ipv6-prefix-length: <%= @rrl_ipv6-prefix_length %>
+<% end -%>
+<% if @rrl_whitelist_ratelimit -%>
+    rrl-whitelist-ratelimit: <%= @rrl_whitelist_ratelimit %>
+<% end -%>

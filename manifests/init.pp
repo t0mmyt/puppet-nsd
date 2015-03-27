@@ -36,6 +36,23 @@
 # Copyright 2015 Your name here, unless otherwise noted.
 #
 class nsd {
+    case $::operatingsystem {
+        centos, redhat, debian, ubuntu: {
+            $nsd_package = 'nsd',
+        }
+        default:  {
+            fail("I've got not idea what the package is called on your operating system, please raise a bug and tell me.")
+        }
+    }
 
+    package { 'nsd':
+        name    => $nsd_package,
+        ensure  => '>4',
+    }
 
+    service { 'nsd':
+        ensure  => running,
+        enabled => true,
+        require => [ Package['nsd'], ],
+    }
 }
