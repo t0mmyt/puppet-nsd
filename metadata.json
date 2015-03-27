@@ -1,0 +1,14 @@
+{
+  "name": "t0mmyt-nsd",
+  "version": "0.1.0",
+  "author": "t0mmyt",
+  "summary": "Configure Name Server Daemon (NSD)",
+  "license": "BSD",
+  "source": "https://github.com/t0mmyt/puppet-nsd",
+  "project_page": "https://github.com/t0mmyt/puppet-nsd",
+  "issues_url": "https://github.com/t0mmyt/puppet-nsd/issues",
+  "dependencies": [
+    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"}
+  ]
+}
+
