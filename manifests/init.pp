@@ -36,36 +36,36 @@
 # Copyright 2015 Your name here, unless otherwise noted.
 #
 class nsd (
-    $ip_address                 = undef;
-    $ip_transient               = undef;
-    $hide_version               = undef;
-    $debug_mode                 = undef;
-    $ipv4_only                  = undef;
-    $ipv6_only                  = undef;
-    $database                   = undef;
-    $identity                   = undef;
-    $server_count               = undef;
-    $statistics                 = undef;
-    $zone_stats_file            = undef;
-    $chroot                     = undef;
-    $username                   = undef;
-    $zonesdir                   = undef;
-    $difffile                   = undef;
-    $xfrdfile                   = undef;
-    $xfrd_reload_timeout        = undef;
-    $verbosity                  = undef;
-    $rrl_size                   = undef;
-    $rrl_ratelimit              = undef;
-    $rrl_slip                   = undef;
-    $rrl_ipv4_prefix_length     = undef;
-    $rrl_ipv6_prefix_length     = undef;
-    $rrl_whitelist_ratelimit    = undef;
+    $ip_address                 = undef,
+    $ip_transient               = undef,
+    $hide_version               = undef,
+    $debug_mode                 = undef,
+    $ipv4_only                  = undef,
+    $ipv6_only                  = undef,
+    $database                   = undef,
+    $identity                   = undef,
+    $server_count               = undef,
+    $statistics                 = undef,
+    $zone_stats_file            = undef,
+    $chroot                     = undef,
+    $username                   = undef,
+    $zonesdir                   = undef,
+    $difffile                   = undef,
+    $xfrdfile                   = undef,
+    $xfrd_reload_timeout        = undef,
+    $verbosity                  = undef,
+    $rrl_size                   = undef,
+    $rrl_ratelimit              = undef,
+    $rrl_slip                   = undef,
+    $rrl_ipv4_prefix_length     = undef,
+    $rrl_ipv6_prefix_length     = undef,
+    $rrl_whitelist_ratelimit    = undef,
 ) {
 
     $os = downcase($::operatingsystem)
     case $os {
         centos, redhat, debian, ubuntu: {
-            $nsd_package = 'nsd',
+            $nsd_package = 'nsd'
         }
         default:  {
             fail("I've got not idea what the package is called on your operating system, please raise a bug and tell me.")
