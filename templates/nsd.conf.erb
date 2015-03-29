@@ -74,3 +74,5 @@ server:
 <% if @rrl_whitelist_ratelimit -%>
     rrl-whitelist-ratelimit: <%= @rrl_whitelist_ratelimit %>
 <% end -%>
+
+include: /etc/nsd/zones/zones.conf

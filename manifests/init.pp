@@ -84,6 +84,22 @@ class nsd (
         mode    => '0750',
     }
 
+    file { '/etc/nsd/zones':
+        ensure  => directory,
+        owner   => 'root',
+        group   => 'nsd',
+        mode    => '0750',
+        require => [ File['/etc/nsd'], ],
+    }
+
+    file { '/etc/nsd/scripts':
+        ensure  => directory,
+        owner   => 'root',
+        group   => 'nsd',
+        mode    => '0750',
+        require => [ File['/etc/nsd'], ],
+    }
+
     file { '/etc/nsd/nsd.conf':
         ensure  => file,
         owner   => 'root',
