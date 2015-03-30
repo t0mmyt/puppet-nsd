@@ -138,6 +138,6 @@ class nsd (
     service { 'nsd':
         ensure  => running,
         enable  => true,
-        require => [ Package['nsd'], File['/etc/nsd/nsd.conf', '/etc/nsd/zones/zones.conf'], ],
+        require => [ Package['nsd'], File['/etc/nsd/nsd.conf', '/etc/nsd/zones/zones.conf'], File['/etc/nsd/scripts'], ],
     }
 }
