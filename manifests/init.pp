@@ -64,8 +64,8 @@ class nsd (
     $rrl_whitelist_ratelimit    = undef,
     $control_enable             = undef,
     $control_interface          = undef,
-    $server_key_file            = '../nsd_server.key',
-    $server_cert_file           = '../nsd_server.pem',
+    $server_key_file            = '/etc/nsd/nsd_server.key',
+    $server_cert_file           = '/etc/nsd/nsd_server.pem',
     $control_key_file           = undef,
     $control_cert_file          = undef,
 ) {
@@ -133,11 +133,12 @@ class nsd (
     exec { 'Create_nsd_control_keys':
         command => '/usr/sbin/nsd-control-setup && chown root:nsd /etc/nsd/nsd_*.{pem,key}',
         creates => '/etc/nsd/nsd_server.pem',
+        require => [ Package['nsd'], ],
     }
 
     service { 'nsd':
         ensure  => running,
         enable  => true,
-        require => [ Package['nsd'], File['/etc/nsd/nsd.conf', '/etc/nsd/zones/zones.conf'], File['/etc/nsd/scripts'], ],
+        require => [ Package['nsd'], File['/etc/nsd/nsd.conf', '/etc/nsd/zones/zones.conf', '/etc/nsd/scripts'], ],
     }
 }
