@@ -81,8 +81,8 @@ class nsd (
     }
 
     package { 'nsd':
-        name    => $nsd_package,
         ensure  => $ensure,
+        name    => $nsd_package,
     }
 
     file { '/etc/nsd':
