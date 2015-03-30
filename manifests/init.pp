@@ -90,6 +90,7 @@ class nsd (
         owner   => 'root',
         group   => 'nsd',
         mode    => '0750',
+        require => [ Package['nsd'], ],
     }
 
     file { '/etc/nsd/zones':
