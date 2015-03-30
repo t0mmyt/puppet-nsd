@@ -38,6 +38,9 @@ server:
 <% if @chroot -%>
     chroot: <%= @chroot %>
 <% end -%>
+<% if @pidfile -%>
+    pidfile: <%= @pidfile %>
+<% end -%>
 <% if @username -%>
     username: <%= @username %>
 <% end -%>
@@ -73,6 +76,29 @@ server:
 <% end -%>
 <% if @rrl_whitelist_ratelimit -%>
     rrl-whitelist-ratelimit: <%= @rrl_whitelist_ratelimit %>
+<% end -%>
+
+<% if @control_enable -%>
+remote-control:
+    control-enable: <%= @control_enable %>
+<% if @control_interface -%>
+    control-interface: <%= @control_interface %>
+<% end -%>
+<% if @server_key_file -%>
+    server-key-file: <%= @server_key_file %>
+<% end -%>
+<% if @server_cert_file -%>
+    server-cert-file: <%= @server_cert_file %>
+<% end -%>
+<% if @control_key_file -%>
+    control-key-file: <%= @control_key_file %>
+<% end -%>
+<% if @control_cert_file -%>
+    control-cert-file: <%= @control_cert_file %>
+<% end -%>
+<% if @control_key_file -%>
+    control-key-file: <%= @control_key_file %>
+<% end -%>
 <% end -%>
 
 include: /etc/nsd/zones/zones.conf

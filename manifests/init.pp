@@ -36,6 +36,7 @@
 # Copyright 2015 Your name here, unless otherwise noted.
 #
 class nsd (
+    $ensure                     = 'latest',
     $ip_address                 = undef,
     $ip_transient               = undef,
     $hide_version               = undef,
@@ -48,6 +49,7 @@ class nsd (
     $statistics                 = undef,
     $zone_stats_file            = undef,
     $chroot                     = undef,
+    $pidfile                    = undef,
     $username                   = undef,
     $zonesdir                   = undef,
     $difffile                   = undef,
@@ -60,6 +62,12 @@ class nsd (
     $rrl_ipv4_prefix_length     = undef,
     $rrl_ipv6_prefix_length     = undef,
     $rrl_whitelist_ratelimit    = undef,
+    $control_enable             = undef,
+    $control_interface          = undef,
+    $server_key_file            = '../nsd_server.key',
+    $server_cert_file           = '../nsd_server.pem',
+    $control_key_file           = undef,
+    $control_cert_file          = undef,
 ) {
 
     $os = downcase($::operatingsystem)
@@ -74,7 +82,7 @@ class nsd (
 
     package { 'nsd':
         name    => $nsd_package,
-        ensure  => '>4',
+        ensure  => $ensure,
     }
 
     file { '/etc/nsd':
@@ -88,15 +96,27 @@ class nsd (
         ensure  => directory,
         owner   => 'root',
         group   => 'nsd',
-        mode    => '0750',
+        mode    => '0770',
         require => [ File['/etc/nsd'], ],
+    }
+
+    file { '/etc/nsd/zones/zones.conf':
+        ensure  => file,
+        replace => 'no',
+        owner   => 'nsd',
+        group   => 'nsd',
+        mode    => '0640',
+        content => '# Placeholder file, replace with version controlled version.',
+        require => [ File['/etc/nsd/zones'], ],
     }
 
     file { '/etc/nsd/scripts':
         ensure  => directory,
+        recurse => true,
         owner   => 'root',
         group   => 'nsd',
         mode    => '0750',
+        source  => 'puppet:///modules/nsd/scripts',
         require => [ File['/etc/nsd'], ],
     }
 
@@ -105,13 +125,18 @@ class nsd (
         owner   => 'root',
         group   => 'nsd',
         mode    => '0640',
-        source  => template('nsd/nsd.conf.erb'),
+        content => template('nsd/nsd.conf.erb'),
         require => [ File['/etc/nsd'], ],
+    }
+
+    exec { 'Create_nsd_control_keys':
+        command => '/usr/sbin/nsd-control-setup && chown root:nsd /etc/nsd/nsd_*.{pem,key}',
+        creates => '/etc/nsd/nsd_server.pem',
     }
 
     service { 'nsd':
         ensure  => running,
-        enabled => true,
-        require => [ Package['nsd'], File['/etc/nsd/nsd.conf'], ],
+        enable  => true,
+        require => [ Package['nsd'], File['/etc/nsd/nsd.conf', '/etc/nsd/zones/zones.conf'], ],
     }
 }
